@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
                 addToBackStack("Task")
-                replace(R.id.mainFragmentContainerView, TarefaFragment(), "TaskDisplayFragment")
+                replace(R.id.mainFragmentContainerView, TaskDisplayFragment(), "TaskDisplayFragment")
             }
         }
     }

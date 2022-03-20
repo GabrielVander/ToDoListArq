@@ -94,7 +94,7 @@ class TaskFeed : BaseFragment(), OnTaskClickListener {
                 bundle.putInt(ACAO_TAREFA_EXTRA, CONSULTA)
             }
         }
-        val taskDisplayFragment = TarefaFragment()
+        val taskDisplayFragment = TaskDisplayFragment()
         taskDisplayFragment.arguments = args
 
         activity?.supportFragmentManager?.commit {
