@@ -8,7 +8,7 @@ import br.edu.ifsp.scl.sdm.pa2.todolistarq.R
 import br.edu.ifsp.scl.sdm.pa2.todolistarq.databinding.ViewTarefaBinding
 import br.edu.ifsp.scl.sdm.pa2.todolistarq.model.entity.Tarefa
 
-class TarefasAdapter(private val onTarefaClickListener: OnTarefaClickListener,
+class TarefasAdapter(private val onTaskClickListener: OnTaskClickListener,
                      private val tarefasList: MutableList<Tarefa>): RecyclerView.Adapter<TarefasAdapter.TarefaViewHolder>() {
     class TarefaViewHolder(val viewTarefaBinding: ViewTarefaBinding): RecyclerView.ViewHolder(viewTarefaBinding.root), View.OnCreateContextMenuListener {
         val nomeTv: TextView = viewTarefaBinding.nomeTv
@@ -39,7 +39,7 @@ class TarefasAdapter(private val onTarefaClickListener: OnTarefaClickListener,
 
         // onTarefaClickListener
         holder.itemView.setOnClickListener {
-            onTarefaClickListener.onTarefaClick(position)
+            onTaskClickListener.onTaskClick(position)
         }
         // Menu de contexto
         holder.itemView.setOnLongClickListener {

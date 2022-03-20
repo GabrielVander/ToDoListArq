@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            add(R.id.mainFragmentContainerView, ListaTarefasFragment(), "TaskFeedFragment")
+            add(R.id.mainFragmentContainerView, TaskFeed(), "TaskFeedFragment")
         }
 
         activityMainBinding.newTaskFab.setOnClickListener {
