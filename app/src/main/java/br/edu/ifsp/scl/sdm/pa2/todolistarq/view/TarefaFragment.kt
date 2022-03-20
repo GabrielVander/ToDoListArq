@@ -24,7 +24,7 @@ class TarefaFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Escondendo botão de adicionar tarefa
-        fab = activity?.findViewById(R.id.novaTarefaFab)
+        fab = activity?.findViewById(R.id.newTaskFab)
         fab?.visibility = GONE
     }
 

@@ -11,20 +11,21 @@ class MainActivity : AppCompatActivity() {
     private val activityMainBinding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activityMainBinding.root)
 
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            add(R.id.principalFcv, ListaTarefasFragment(), "ListaTarefasFragment")
+            add(R.id.mainFragmentContainerView, ListaTarefasFragment(), "TaskFeedFragment")
         }
 
-        activityMainBinding.novaTarefaFab.setOnClickListener {
+        activityMainBinding.newTaskFab.setOnClickListener {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                addToBackStack("Tarefa")
-                replace(R.id.principalFcv, TarefaFragment(), "TarefaFragment")
+                addToBackStack("Task")
+                replace(R.id.mainFragmentContainerView, TarefaFragment(), "TaskDisplayFragment")
             }
         }
     }

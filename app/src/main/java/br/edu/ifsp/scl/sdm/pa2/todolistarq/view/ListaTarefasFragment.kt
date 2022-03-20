@@ -107,7 +107,7 @@ class ListaTarefasFragment: BaseFragment(), OnTarefaClickListener {
         activity?.supportFragmentManager?.commit {
             setReorderingAllowed(true)
             addToBackStack("TarefaFragment")
-            replace(R.id.principalFcv, tarefaFragment)
+            replace(R.id.mainFragmentContainerView, tarefaFragment)
         }
     }
 }
