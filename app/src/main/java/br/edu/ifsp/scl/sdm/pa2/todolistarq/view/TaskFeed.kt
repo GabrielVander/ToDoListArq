@@ -10,18 +10,18 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.edu.ifsp.scl.sdm.pa2.todolistarq.R
 import br.edu.ifsp.scl.sdm.pa2.todolistarq.databinding.FragmentTaskFeedBinding
-import br.edu.ifsp.scl.sdm.pa2.todolistarq.model.entity.Tarefa
-import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.BaseFragment.Constantes.ACAO_TAREFA_EXTRA
-import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.BaseFragment.Constantes.CONSULTA
-import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.BaseFragment.Constantes.TAREFA_EXTRA
-import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.BaseFragment.Constantes.TAREFA_REQUEST_KEY
+import br.edu.ifsp.scl.sdm.pa2.todolistarq.model.entity.Task
+import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.BaseFragment.Constants.TASK_EXTRA
+import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.BaseFragment.Constants.TASK_EXTRA_ACTION
+import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.BaseFragment.Constants.TASK_REQUEST_KEY
+import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.BaseFragment.Constants.VIEW_ONLY
 import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.adapter.OnTaskClickListener
-import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.adapter.TarefasAdapter
+import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.adapter.TasksAdapter
 
 class TaskFeed : BaseFragment(), OnTaskClickListener {
     private lateinit var fragmentTaskFeedBinding: FragmentTaskFeedBinding
-    private lateinit var tasks: MutableList<Tarefa>
-    private lateinit var tasksAdapter: TarefasAdapter
+    private lateinit var tasks: MutableList<Task>
+    private lateinit var tasksAdapter: TasksAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,11 +29,11 @@ class TaskFeed : BaseFragment(), OnTaskClickListener {
         tasks = mutableListOf()
 
         for (i in 0..10) {
-            tasks.add(Tarefa(i, "Task $i", i % 2))
+            tasks.add(Task(i, "Task $i", i % 2))
         }
 
-        setFragmentResultListener(TAREFA_REQUEST_KEY) { _, bundle ->
-            val taskExtra = bundle.getParcelable<Tarefa>(TAREFA_EXTRA)
+        setFragmentResultListener(TASK_REQUEST_KEY) { _, bundle ->
+            val taskExtra = bundle.getParcelable<Task>(TASK_EXTRA)
             if (taskExtra != null) {
                 var isANewTask = true
                 tasks.forEachIndexed { index, task ->
@@ -58,7 +58,7 @@ class TaskFeed : BaseFragment(), OnTaskClickListener {
         fragmentTaskFeedBinding =
             FragmentTaskFeedBinding.inflate(inflater, container, false)
 
-        tasksAdapter = TarefasAdapter(this, tasks)
+        tasksAdapter = TasksAdapter(this, tasks)
         val feedLayoutManager = LinearLayoutManager(activity)
         fragmentTaskFeedBinding.tasksRecyclerView.adapter = tasksAdapter
         fragmentTaskFeedBinding.tasksRecyclerView.layoutManager = feedLayoutManager
@@ -72,7 +72,7 @@ class TaskFeed : BaseFragment(), OnTaskClickListener {
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
-        val position = tasksAdapter.posicao
+        val position = tasksAdapter.position
         return when (item.itemId) {
             R.id.editarTarefaMi -> {
                 openTaskDisplayFragment(tasks[position], false)
@@ -87,11 +87,11 @@ class TaskFeed : BaseFragment(), OnTaskClickListener {
         }
     }
 
-    private fun openTaskDisplayFragment(task: Tarefa, isViewOnly: Boolean) {
+    private fun openTaskDisplayFragment(task: Task, isViewOnly: Boolean) {
         val args = Bundle().also { bundle ->
-            bundle.putParcelable(TAREFA_EXTRA, task)
+            bundle.putParcelable(TASK_EXTRA, task)
             if (isViewOnly) {
-                bundle.putInt(ACAO_TAREFA_EXTRA, CONSULTA)
+                bundle.putInt(TASK_EXTRA_ACTION, VIEW_ONLY)
             }
         }
         val taskDisplayFragment = TaskDisplayFragment()

@@ -8,11 +8,11 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity
-data class Tarefa (
+data class Task(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     @NonNull
-    var nome: String,
+    var name: String,
     @NonNull
-    var realizada: Int = 0
-): Parcelable
+    var isDone: Int = 0
+) : Parcelable

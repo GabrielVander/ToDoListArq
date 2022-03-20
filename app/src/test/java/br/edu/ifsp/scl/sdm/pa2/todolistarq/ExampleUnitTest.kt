@@ -1,8 +1,7 @@
 package br.edu.ifsp.scl.sdm.pa2.todolistarq
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).

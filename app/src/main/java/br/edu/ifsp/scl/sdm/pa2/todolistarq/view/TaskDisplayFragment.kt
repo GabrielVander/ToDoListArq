@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.setFragmentResult
 import br.edu.ifsp.scl.sdm.pa2.todolistarq.R
 import br.edu.ifsp.scl.sdm.pa2.todolistarq.databinding.FragmentTaskDisplayBinding
-import br.edu.ifsp.scl.sdm.pa2.todolistarq.model.entity.Tarefa
-import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.BaseFragment.Constantes.ACAO_TAREFA_EXTRA
-import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.BaseFragment.Constantes.CONSULTA
-import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.BaseFragment.Constantes.TAREFA_EXTRA
-import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.BaseFragment.Constantes.TAREFA_REQUEST_KEY
+import br.edu.ifsp.scl.sdm.pa2.todolistarq.model.entity.Task
+import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.BaseFragment.Constants.TASK_EXTRA
+import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.BaseFragment.Constants.TASK_EXTRA_ACTION
+import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.BaseFragment.Constants.TASK_REQUEST_KEY
+import br.edu.ifsp.scl.sdm.pa2.todolistarq.view.BaseFragment.Constants.VIEW_ONLY
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class TaskDisplayFragment : BaseFragment() {
@@ -42,7 +42,7 @@ class TaskDisplayFragment : BaseFragment() {
             } else {
             }
             returnTask(
-                Tarefa(
+                Task(
                     150,
                     fragmentTaskDisplayBinding.taskNameEditText.text.toString(),
                     if (fragmentTaskDisplayBinding.isTaskDoneCheckbox.isChecked) 1 else 0
@@ -50,16 +50,16 @@ class TaskDisplayFragment : BaseFragment() {
             )
         }
 
-        val taskExtra = arguments?.getParcelable<Tarefa>(TAREFA_EXTRA)
+        val taskExtra = arguments?.getParcelable<Task>(TASK_EXTRA)
         if (taskExtra != null) {
             taskExtraId = taskExtra.id.toLong()
             with(fragmentTaskDisplayBinding) {
-                taskNameEditText.setText(taskExtra.nome)
+                taskNameEditText.setText(taskExtra.name)
                 isTaskDoneCheckbox.isChecked =
-                    taskExtra.realizada != 0
+                    taskExtra.isDone != 0
             }
-            val taskExtraAction = arguments?.getInt(ACAO_TAREFA_EXTRA)
-            if (taskExtraAction == CONSULTA) {
+            val taskExtraAction = arguments?.getInt(TASK_EXTRA_ACTION)
+            if (taskExtraAction == VIEW_ONLY) {
                 with(fragmentTaskDisplayBinding) {
                     taskNameEditText.isEnabled = false
                     isTaskDoneCheckbox.isEnabled = false
@@ -76,9 +76,9 @@ class TaskDisplayFragment : BaseFragment() {
         fab?.visibility = View.VISIBLE
     }
 
-    private fun returnTask(task: Tarefa) {
-        setFragmentResult(TAREFA_REQUEST_KEY, Bundle().also {
-            it.putParcelable(TAREFA_EXTRA, task)
+    private fun returnTask(task: Task) {
+        setFragmentResult(TASK_REQUEST_KEY, Bundle().also {
+            it.putParcelable(TASK_EXTRA, task)
         })
         activity?.supportFragmentManager?.popBackStack()
     }
